@@ -1,6 +1,5 @@
 import os.path
 import tensorflow as tf
-tf.GraphKeys.VARIABLES = tf.GraphKeys.GLOBAL_VARIABLES
 import helper
 import warnings
 from distutils.version import LooseVersion
