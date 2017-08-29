@@ -53,9 +53,6 @@ def layers(vgg_layer3_out, vgg_layer4_out, vgg_layer7_out, num_classes):
     :param num_classes: Number of classes to classify
     :return: The Tensor for the last layer of output
     """
-    vgg_layer3_out = tf.stop_gradient(vgg_layer3_out)
-    vgg_layer4_out = tf.stop_gradient(vgg_layer4_out)
-    vgg_layer7_out = tf.stop_gradient(vgg_layer7_out)
 
     print("vgg_layer7_out " + str(vgg_layer7_out))
 
@@ -115,8 +112,8 @@ def train_nn(sess, epochs, batch_size, get_batches_fn, train_op, cross_entropy_l
     :param keep_prob: TF Placeholder for dropout keep probability
     :param learning_rate: TF Placeholder for learning rate
     """
-    LEARNING_RATE = 0.0001
-    KEEP_PROB = 0.5
+    LEARNING_RATE = 0.0003
+    KEEP_PROB = 0.75
 
     with sess.as_default():
         sess.run(tf.global_variables_initializer())
@@ -163,8 +160,8 @@ def run():
         # Build NN using load_vgg, layers, and optimize function
         correct_label = tf.placeholder(tf.float32, [None, image_shape[0], image_shape[1], num_classes], name="correct_label")
         learning_rate = tf.placeholder(tf.float32, name="learning_rate")
-        batch_size = 32
-        epochs = 100
+        batch_size = 1
+        epochs = 6
 
         img_input, keep_prob, layer3, layer4, layer7 = load_vgg(sess=sess, vgg_path=vgg_path)
         dec_output = layers(layer3, layer4, layer7, num_classes)
